@@ -177,14 +177,38 @@ class Program
         //int[] arr = { 1, 2, 3, 4, 5, 6 };
         //Console.WriteLine(BinarySearch(arr, 5));
 
-        int[] arrayOne = {1, 20, 4, 7, -15};
-        int[] arrayTwo = {20, -32, 6, 17, 55 };
+        //int[] arrayOne = {1, 20, 4, 7, -15};
+        //int[] arrayTwo = {20, -32, 6, 17, 55 };
 
         //int[] evenNum = FindEvenNumber(arrayOne, arrayTwo);
         //Array.ForEach(evenNum, Console.WriteLine);
 
-        int[] reversedArray = ReverseInPlace(arrayOne);
-        Array.ForEach(reversedArray, Console.WriteLine);
+        //int[] reversedArray = ReverseInPlace(arrayOne);
+        //Array.ForEach(reversedArray, Console.WriteLine);
+
+        Queue<int> queue = new Queue<int>();
+
+        queue.Enqueue(1);
+        queue.Enqueue(2);
+        queue.Enqueue(3);
+        queue.Enqueue(4);
+        queue.Enqueue(5);
+
+        //Queue will remove first item in the queue
+        // First in, first out
+        int removedItem = queue.Dequeue();
+        Console.WriteLine(removedItem); //Number 1
+
+        //Peek is select the fist item in the queue
+        //It will not remove item
+        int peekItem = queue.Peek(); //Number 2
+        Console.WriteLine(peekItem);
+
+        int current;
+        while (queue.TryDequeue(out current))
+        {
+            Console.WriteLine(current);
+        }
     }
 
 }
