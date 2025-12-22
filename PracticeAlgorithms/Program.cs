@@ -151,8 +151,34 @@ class Program
         return input;
     }
 
+    static void printBinaryNumber(int number)
+    {
+        //Check valid input
+        if(number <= 0)
+        {
+            return;
+        }
+
+        Queue<int> queue = new Queue<int>();
+        queue.Enqueue(1);
+        for(int i = 0; i < number; i++)
+        {
+            // 1 -> 10 -> 11 -> 100 -> 101 -> 111 -> 1000
+            int current = queue.Dequeue();
+            Console.WriteLine(current);
+
+            queue.Enqueue(current * 10);
+            queue.Enqueue(current * 10 + 1);
+        }
+
+        Console.WriteLine();
+
+    }
+
     static void Main(string[] args)
     {
+        printBinaryNumber(5);
+
         //Console.WriteLine(IsLowerCase("HELLO"));
         //Console.WriteLine(IsLowerCase("Hello"));
         //Console.WriteLine(IsLowerCase("123"));
@@ -186,29 +212,29 @@ class Program
         //int[] reversedArray = ReverseInPlace(arrayOne);
         //Array.ForEach(reversedArray, Console.WriteLine);
 
-        Queue<int> queue = new Queue<int>();
+        //Queue<int> queue = new Queue<int>();
 
-        queue.Enqueue(1);
-        queue.Enqueue(2);
-        queue.Enqueue(3);
-        queue.Enqueue(4);
-        queue.Enqueue(5);
+        //queue.Enqueue(1);
+        //queue.Enqueue(2);
+        //queue.Enqueue(3);
+        //queue.Enqueue(4);
+        //queue.Enqueue(5);
 
-        //Queue will remove first item in the queue
-        // First in, first out
-        int removedItem = queue.Dequeue();
-        Console.WriteLine(removedItem); //Number 1
+        ////Queue will remove first item in the queue
+        //// First in, first out
+        //int removedItem = queue.Dequeue();
+        //Console.WriteLine(removedItem); //Number 1
 
-        //Peek is select the fist item in the queue
-        //It will not remove item
-        int peekItem = queue.Peek(); //Number 2
-        Console.WriteLine(peekItem);
+        ////Peek is select the fist item in the queue
+        ////It will not remove item
+        //int peekItem = queue.Peek(); //Number 2
+        //Console.WriteLine(peekItem);
 
-        int current;
-        while (queue.TryDequeue(out current))
-        {
-            Console.WriteLine(current);
-        }
+        //int current;
+        //while (queue.TryDequeue(out current))
+        //{
+        //    Console.WriteLine(current);
+        //}
     }
 
 }
