@@ -175,9 +175,123 @@ class Program
 
     }
 
-    static void Main(string[] args)
+    static void findNextGreaterNumber(int[] array)
     {
-        printBinaryNumber(5);
+        //Null check
+        if(array.Length <= 0)
+        {
+            return;
+        }
+
+        //Setup stack to keep track the array
+        Stack<int> stack = new Stack<int>();
+
+        // Add first element into the stack
+        stack.Push(array[0]); //15
+        //Then we can loop through the array
+        for(int i = 1; i < array.Length; i++)
+        {
+            int next = array[i];//8
+            //Checking the Stack has item
+            if(stack.Count > 0)
+            {
+                int popped = stack.Pop();//15
+                while(popped < next)// 8 < 10 --> Found the next greater, 
+                {
+                    Console.WriteLine(popped + "-->" + next);
+                    if(stack.Count <= 0)
+                    {
+                        break;
+                    }
+                    popped = stack.Pop();
+                }
+
+                if(popped > next) //15 > 8 --> Not match the requirement
+                {
+                    stack.Push(popped); // stack: 8
+                }
+            }
+            stack.Push(next); 
+        }
+
+        while(stack.Count > 0)
+        {
+            Console.WriteLine(stack.Pop() + "-->" + -1);
+        }
+
+    }
+
+    static void findNextGreaterNumber2(int[] ints) {
+        //Null check
+        if(ints.Length <= 0)
+        {
+            Console.WriteLine();
+            return;
+        }
+
+        // Create stack to keep track the value
+        Stack<int> stack = new Stack<int>();
+        stack.Push(ints[0]);
+
+        //Loop through the list to check the next number
+        for(int i = 1; i < ints.Length; i++)
+        {
+            if(stack.Count > 0)
+            {
+                int next = ints[i];
+                int popped = stack.Pop();
+                while(popped < next)
+                {
+                    Console.WriteLine(popped + "-->" + next);
+                    if(stack.Count <= 0) {
+                        break;
+                    }
+                    popped = stack.Pop();
+                }
+
+                if(popped > next)
+                {
+                    stack.Push(popped);
+                }
+
+                stack.Push(next);
+
+            }
+        }
+        while(stack.Count > 0)
+        {
+            Console.WriteLine(stack.Pop() + "-->" + -1);
+        }
+    }
+
+    static void Main(string[] args){
+
+        int[] arr = new int[] {15, 8, 4, 10};
+        int[] arr2 = new int[] { 2 };
+        int[] arr3 = new int[] { 2, 3 };
+        int[] arr4 = new int[] { };
+
+        findNextGreaterNumber2(arr);
+        findNextGreaterNumber2(arr2);
+        findNextGreaterNumber2(arr3);
+        findNextGreaterNumber2(arr4);
+
+
+        //Stack
+        //Stack<string> myStacks = new Stack<string>();
+
+        //myStacks.Push("Main");
+        //myStacks.Push("ResponseBuilder");
+        //myStacks.Push("CallExternalService");
+
+        //Console.WriteLine("End " + myStacks.Pop());
+        //myStacks.Push("ParseExternalData");
+        //Console.WriteLine("End " + myStacks.Pop());
+        //Console.WriteLine("End " + myStacks.Pop());
+        //Console.WriteLine("End " + myStacks.Pop());
+
+
+        // printBinaryNumber(5);
 
         //Console.WriteLine(IsLowerCase("HELLO"));
         //Console.WriteLine(IsLowerCase("Hello"));
