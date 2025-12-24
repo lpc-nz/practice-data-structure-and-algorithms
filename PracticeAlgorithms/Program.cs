@@ -264,17 +264,134 @@ class Program
         }
     }
 
+    static Boolean hasMatchingParentheses(string sympol) {
+        Stack<char> stack = new Stack<char>();
+        for(int i = 0; i< sympol.Length; i++)
+        {
+            char current = sympol[i];
+            if(current == '(')
+            {
+                stack.Push(current);
+                continue;
+            }
+
+            if(current == ')')
+            {
+                if(stack.Count > 0)
+                {
+                    stack.Pop();
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+
+        }
+
+        return stack.Count == 0;
+    }
+
+    public static bool IsNumber(string token)
+    {
+        try
+        {
+            double.Parse(token);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+
+    public static bool IsOperator(string token)
+    {
+        return "+-*/".Contains(token);
+    }
+
+    public static double PerformOperation(string @operator, double operand1, double operand2)
+    {
+        switch (@operator)
+        {
+            case "+":
+                return operand1 + operand2;
+            case "-":
+                return operand1 - operand2;
+            case "*":
+                return operand1 * operand2;
+            case "/":
+                if (operand2 == 0)
+                {
+                    throw new DivideByZeroException("Division by zero is not allowed.");
+                }
+                return operand1 / operand2;
+            default:
+                throw new ArgumentException("Invalid operator: " + @operator);
+        }
+    }
+
+    // Return the result of the Reverse Polish notation expression
+    public static double EvaluateRPN(string expression)
+    {
+        // Your code goes here.
+        Stack<double> stack = new Stack<double>();
+        double finalResult = 0;
+        for (int i = 0; i < expression.Length; i++)
+        {
+            string item = expression[i].ToString();
+            if (IsNumber(item))
+            {
+                stack.Push(int.Parse(item));
+            }
+            if (IsOperator(item))
+            {
+                if (stack.Count > 2)
+                {
+                    double first = stack.Pop();
+                    double second = stack.Pop();
+                    double result = PerformOperation(item, first, second);
+                    stack.Push(result);
+                }
+            }
+
+        }
+        if (stack.Count > 0)
+        {
+            finalResult = stack.Pop();
+        }
+
+        return finalResult;
+    }
+
     static void Main(string[] args){
 
-        int[] arr = new int[] {15, 8, 4, 10};
-        int[] arr2 = new int[] { 2 };
-        int[] arr3 = new int[] { 2, 3 };
-        int[] arr4 = new int[] { };
+        string expression = "3 4 +";
+        double result = EvaluateRPN(expression);
+        Console.WriteLine(result);
 
-        findNextGreaterNumber2(arr);
-        findNextGreaterNumber2(arr2);
-        findNextGreaterNumber2(arr3);
-        findNextGreaterNumber2(arr4);
+        //Console.WriteLine(hasMatchingParentheses("()hello()"));
+        //Console.WriteLine(hasMatchingParentheses("(())hello(())"));
+        //Console.WriteLine(hasMatchingParentheses("hello(())"));
+        //Console.WriteLine(hasMatchingParentheses("(hello)()"));
+
+        //Console.WriteLine("------");
+
+        //Console.WriteLine(hasMatchingParentheses("(hello()"));
+        //Console.WriteLine(hasMatchingParentheses("((hello"));
+        //Console.WriteLine(hasMatchingParentheses("((hello("));
+        //Console.WriteLine(hasMatchingParentheses("))hello"));
+
+        //int[] arr = new int[] {15, 8, 4, 10};
+        //int[] arr2 = new int[] { 2 };
+        //int[] arr3 = new int[] { 2, 3 };
+        //int[] arr4 = new int[] { };
+
+        //findNextGreaterNumber2(arr);
+        //findNextGreaterNumber2(arr2);
+        //findNextGreaterNumber2(arr3);
+        //findNextGreaterNumber2(arr4);
 
 
         //Stack
